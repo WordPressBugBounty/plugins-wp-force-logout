@@ -58,7 +58,7 @@ class WP_Force_Logout_Process {
 	public function enqueue_scripts() {
 
 		wp_enqueue_style( 'wp-force-logout', plugins_url( 'assets/css/wp-force-logout.css', WP_FORCE_LOGOUT_PLUGIN_FILE ), array(), WPFL_VERSION, $media = 'all' );
-		wp_enqueue_script( 'wp-force-logout-js', plugins_url( 'assets/js/script.js', WP_FORCE_LOGOUT_PLUGIN_FILE ), array(), WPFL_VERSION, false );
+		wp_enqueue_script( 'wp-force-logout-js', plugins_url( 'assets/js/script.js', WP_FORCE_LOGOUT_PLUGIN_FILE ), array( 'jquery' ), WPFL_VERSION, false );
 		wp_localize_script(
 			'wp-force-logout-js',
 			'wpfl_plugins_params',
@@ -212,7 +212,7 @@ class WP_Force_Logout_Process {
 	public function update_online_users_status() {
 
 		// Get the user online status list.
-		$logged_in_users = get_transient( 'online_status', [] );
+		$logged_in_users = get_transient( 'online_status' ) ?: array();
 
 		// Get current user ID
 		$user = wp_get_current_user();
